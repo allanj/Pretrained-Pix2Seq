@@ -193,3 +193,26 @@ def build(image_set, args):
         large_scale_jitter=args.large_scale_jitter,
         image_set=image_set)
     return dataset
+
+def build_publaynet(image_set, args):
+    root = Path(args.coco_path)
+    assert root.exists(), f'provided Publaynet path {root} does not exist'
+    mode = 'instances'
+    PATHS = {
+        "train": (root / "train", root / 'train.json'),
+        "val": (root / "val", root / 'val.json'),
+    }
+
+    img_folder, ann_file = PATHS[image_set]
+    dataset = CocoDetection(
+        img_folder,
+        ann_file,
+        transforms=make_coco_transforms(image_set, args),
+        return_masks=False,
+        large_scale_jitter=args.large_scale_jitter,
+        image_set=image_set)
+    return dataset
+
+
+if __name__ == '__main__':
+    build_publaynet('downstream_tasks/publaynet/publaynet/val', args)

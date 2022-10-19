@@ -3,6 +3,7 @@ import torch.utils.data
 import torchvision
 
 from .coco import build as build_coco
+from .coco import build_publaynet
 
 
 def get_coco_api_from_dataset(dataset):
@@ -18,4 +19,6 @@ def get_coco_api_from_dataset(dataset):
 def build_dataset(image_set, args):
     if args.dataset_file == 'coco':
         return build_coco(image_set, args)
+    elif args.dataset_file == 'publaynet':
+        return build_publaynet(image_set, args)
     raise ValueError(f'dataset {args.dataset_file} not supported')
