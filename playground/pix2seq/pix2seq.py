@@ -78,8 +78,8 @@ class Pix2Seq(nn.Module):
         device = targets[0]["labels"].device
         input_seq_list = []
         for b_i, target in enumerate(targets):
-            box = target["boxes"]
-            label = target["labels"]
+            box = target["boxes"][:max_objects]
+            label = target["labels"][:max_objects]
             img_size = target["size"]
             h, w = img_size[0], img_size[1]
             scale_factor = torch.stack([w, h, w, h], dim=0)
