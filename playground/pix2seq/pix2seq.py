@@ -92,6 +92,8 @@ class Pix2Seq(nn.Module):
 
             num_objects = input_tokens.shape[0]
             num_noise = max_objects - num_objects
+            if num_noise < 0:
+                num_noise = 0
 
             random_class = torch.randint(0, self.num_classes, (num_noise, 1), device=device) + self.num_bins + 1
             random_box_x0y0 = torch.rand(num_noise, 2, device=device)
