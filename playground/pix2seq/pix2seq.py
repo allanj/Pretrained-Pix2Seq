@@ -150,8 +150,8 @@ class SetCriterion(nn.Module):
         device = targets[0]["labels"].device
         target_seq_list = []
         for target in targets:
-            label = target["labels"]
-            box = target["boxes"]
+            label = target["labels"][:max_objects]
+            box = target["boxes"][:max_objects]
             img_size = target["size"]
             h, w = img_size[0], img_size[1]
 
